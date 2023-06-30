@@ -166,6 +166,7 @@ pub fn process_input_system(
     // the button when being outside, some platforms will fire `CursorLeft` again together
     // with `MouseButtonInput` - this is why we also take `prev_mouse_position` into account.
     if let Some((window_id, position)) = egui_mouse_position.or(prev_mouse_position) {
+        //println!("Window: {:?} -- Mouse position: {:?}", window_id, position);
         if let Ok(mut context) = context_params.contexts.get_mut(window_id) {
             let events = &mut context.egui_input.events;
 
@@ -181,12 +182,14 @@ pub fn process_input_system(
                     ButtonState::Released => false,
                 };
                 if let Some(button) = button {
-                    events.push(egui::Event::PointerButton {
+                    let event = egui::Event::PointerButton {
                         pos: position.to_pos2(),
                         button,
                         pressed,
                         modifiers,
-                    });
+                    };
+                    //println!("Event: {:?}", event);
+                    events.push(event);
                 }
             }
 

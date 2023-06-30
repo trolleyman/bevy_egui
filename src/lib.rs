@@ -81,7 +81,7 @@ use bevy::{
     log,
     prelude::{
         Added, Commands, Component, Deref, DerefMut, Entity, IntoSystemConfigs, Last, PostUpdate,
-        PreStartup, PreUpdate, Query, Resource, Shader, Startup, SystemSet, With, Without,
+        PreStartup, PreUpdate, Query, Resource, Shader, SystemSet, With, Without,
     },
     render::{
         render_resource::SpecializedRenderPipelines, texture::Image, ExtractSchedule, Render,
