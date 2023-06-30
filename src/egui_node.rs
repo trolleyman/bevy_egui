@@ -44,7 +44,7 @@ pub struct EguiPipeline {
 
 impl FromWorld for EguiPipeline {
     fn from_world(render_world: &mut World) -> Self {
-        let render_device = render_world.get_resource::<RenderDevice>().unwrap();
+        let render_device = render_world.resource::<RenderDevice>();
 
         let transform_bind_group_layout =
             render_device.create_bind_group_layout(&BindGroupLayoutDescriptor {
@@ -337,13 +337,15 @@ impl Node for EguiNode {
 
         let egui_transforms = world.get_resource::<EguiTransforms>().unwrap();
 
+        let swap_chain_texture_view = swap_chain_texture.texture.create_view(&Default::default());
+
         let mut render_pass =
             render_context
                 .command_encoder()
                 .begin_render_pass(&RenderPassDescriptor {
                     label: Some("egui render pass"),
                     color_attachments: &[Some(RenderPassColorAttachment {
-                        view: swap_chain_texture,
+                        view: &swap_chain_texture_view,
                         resolve_target: None,
                         ops: Operations {
                             load: LoadOp::Load,
